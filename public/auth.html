@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+  <link rel="stylesheet" href="css/reset.css">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="/__/firebase/init.js"></script>
+  <title>認証画面</title>
+</head>
+<body>
+  <!-- 認証画面 -->
+  <div class="background">
+    <div class="auth_main">
+      <img src="img/KANATAN KANJI.png" alt="ロゴ">
+      <h2>ログイン</h2>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+  </div>
+  <!-- firebaseの実装 -->
+  <!-- <script>
+    firebase.initializeApp(firebaseConfig);
+  </script> -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "***********************************",
+        authDomain: "***********************************",
+        projectId: "***********************************",
+        storageBucket: "***********************************",
+        messagingSenderId: "***********************************",
+        appId: "***********************************"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+  <!-- ログイン画面の実装 -->
+  <script>
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    var uiConfig = {
+      callbacks: {
+        signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+          return true;
+        },
+      },
+      signInFlow: 'popup',
+      signInSuccessUrl: './index.html',
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      ],
+    };
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+</body>
+</html>

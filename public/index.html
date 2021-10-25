@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KANTAN KANJI</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 路線検索API -->
+  <script type="text/javascript" src="https://express.heartrails.com/api/express.js"></script>
+</head>
+  <body onload="HRELoadArea('area', 'line', 'station');">
+  <!-- ヘッダー -->
+  <header>
+    <div class="header">
+      <a href="index.html"><img src="img/KANATAN KANJI.png" alt="logo"></a>
+      <ul class="link" id="link">
+        <li><a href="auth.html">ログイン</a></li>
+      </ul>
+    </div>
+    <!-- メインイメージ -->
+    <div class="hero_img">
+      <div class="bg">
+        <span class="bg-wrap"><span class="inn">幹事の仕事をもっと楽に</span></span><br><br><br>
+        <span class="bg-wrap"><span class="inn">たのしい時間をあなたへ</span></span>
+      </div>
+    </div>
+  </header>
+  <!-- メインコンテンツ -->
+  <div id="flex">
+    <main>
+      <!-- 検索エリア -->
+      <div id="map_input">
+        <h2 class="title">お店を探す</h2>
+        <div id="place_search">
+          <!-- 現在地から最寄り駅を探す -->
+          <div id="pattarn1">
+            <p class="search_title">現在地から最寄駅を探す</p>
+            <img id="map-img" src="img/undraw_map_1r69.png" alt="マップ">
+            <div class="moyori_box">
+              <button id="moyori-btn" onclick="GetMyPlace()">現在地取得</button>
+              <p class="yazirusi">▷▷▷</p>
+              <select id="moyori">
+                <option value="">最寄駅を出力します</option>
+              </select>
+            </div>
+            <button class="btn btn--yellow btn--cubic" onclick="pushPin()">検索結果を表示</button>
+          </div>
+          <!-- 都道府県から最寄り駅を探す -->
+          <div id="pattarn2">
+            <p class="search_title">都道府県から駅を探す</p>
+            <img id="map-img1" src="img/map-japan-icon-silhouette-orange.png" alt="マップ">
+            <div class="moyori_box1">
+              <select id="area" name="area" onchange="HREOnChangeArea();">
+                <option value="">エリアを選択</option>
+              </select>
+              <select id="line" name="line" onchange="HREOnChangeLine();">
+                <option value="">路線を選択</option>
+              </select>
+              <select id="station" name="station">
+                <option value="">駅を選択</option>
+              </select>
+            </div>
+            <button class="btn btn--yellow btn--cubic" onclick="pushPin2()">検索結果を表示</button>
+          </div>
+        </div>
+      </div>
+      <!-- 検索結果 -->
+      <h2 class="title">検索結果</h2>
+      <div id="hide-comment">
+        <img src="img/undraw_Social_user_re_8cky.png" alt="image">
+        <p>検索結果はここに表記されます。</p>
+      </div>
+      <div id="result">
+        <!-- マップの表示 -->
+        <div id = "map_area">
+          <div id="myMap" ondblclick="GetMap_addPin(myMap, shopList, 15, shopList.length)"></div>
+        </div>
+        <!-- レストランの詳細表示 -->
+        <div id="shop-info">
+        </div>
+      </div>
+      <!-- 候補店舗を表示 -->
+      <div id="candicate">
+        <h2 class="title">候補店舗</h2>
+      </div>
+    </main>
+  </div>
+  <!-- お気に入りページ -->
+  <div id="fav-area">
+    <!-- マップ部分 -->
+    <h2 class="title">お気に入り</h2>
+    <div id="fav-map">
+      <div id="myMap2" ></div>
+      <div id="fav-text">
+        <p id="total"></p>
+        <div id="favBlock">
+          <table id="fav_table">
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 店舗詳細 -->
+    <h2 class="title">お気に入り店舗一覧</h2>
+    <div id="fav-shop">
+    </div>
+  </div>
+  <!-- フッター -->
+  <footer>
+  </footer>
+  <!-- ローディング画面 -->
+  <div id="overlay">
+    <div class="cv-spinner">
+      <span class="spinner"></span>
+      <p>検索中です。少々お持ちください。</p>
+    </div>
+  </div>
+  <!-- JQueryの読み込み -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- ホットペッパーのメインJS -->
+  <script src="js/hotpepper.js"></script>
+
+  <!-- マップのメインJS -->
+  <script src="js/map.js"></script>
+  <script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=An4PGJ3yjcMtzIgyaqIlwzjUn7JZBdC6m85ym0EkscojH9lyuzBcIW5Qzi-VWBWm" async defer></script>
+  <script src="js/BmapQuery.js"></script>
+
+
+  <!-- 各処理の実行 -->
+  <script>
+    // 地図要素を取得
+    const myMap = document.querySelector('#myMap');
+    // 検索結果エリアと候補エリアの非表示
+    $('#result').fadeOut();
+    $('#candicate').fadeOut();
+
+    // 店舗へPINを指す
+    async function pushPin(){
+      if (!(document.getElementById('moyori').value == "")) {
+        $("#overlay").fadeIn(1);
+        $('#hide-comment').fadeOut(1);
+        get_xy();
+        setTimeout(() => {
+          restaurant(myPlace.lat, myPlace.lng, 5);
+        }, 1500);
+        setTimeout(() => {
+          shopInfo(shopList);
+          GetMap_addPin(myMap, shopList, 15, shopList.length);
+          $("#overlay").fadeOut(300);
+          $('#result').fadeIn(1);
+          $('#candicate').fadeIn(1);
+        }, 2200);
+      } else {
+        alert('駅名を選択してください')
+      }
+    };
+
+    async function pushPin2() {
+      if(!(document.getElementById('station').value == "")){
+        $("#overlay").fadeIn(1);
+        $('#hide-comment').fadeOut(1);
+        get_xy2();
+        setTimeout(() => {
+          restaurant(myPlace.lat, myPlace.lng, 5);
+        }, 1500);
+        setTimeout(() => {
+          shopInfo(shopList);
+          GetMap_addPin(myMap, shopList, 15, shopList.length);
+          $("#overlay").fadeOut(300);
+          $('#result').fadeIn(1);
+          $('#candicate').fadeIn(1);
+        }, 2200)
+      }else {
+        alert('駅名を選択してください');
+      }
+    };
+  </script>
+  <!-- firebase設定 -->
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "***********************************",
+      authDomain: "***********************************",
+      projectId: "***********************************",
+      storageBucket: "***********************************",
+      messagingSenderId: "***********************************",
+      appId: "***********************************"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    // firebaseにプッシュ
+    const db = firebase.firestore();
+    // ログインユーザーのキャッチ
+    const User = {
+      uid: null,
+      name: null,
+    };
+    const firebase_obj = {}
+    // ログインユーザーの値を取得
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // ログインしている人がいれば
+        User.uid = user.uid;
+        User.name = user.displayName;
+        const link = document.getElementById('link');
+        link.children[0].remove();
+        const li = document.createElement('li');
+        li.id = "userName"
+        li.textContent = "こんにちは  " + user.displayName + 'さん';
+        link.prepend(li);
+        const li2 = document.createElement('li');
+        li2.id = 'logout'
+        li2.textContent = "ログアウト"
+        li2.addEventListener('click', function() {
+          if (confirm("ログアウトしますか？") == true) {
+            firebase.auth().onAuthStateChanged((user) => {
+              firebase.auth().signOut().then(() => {
+              })
+                .catch((error) => {
+                  alert(`ログアウト時にエラーが発生しました (${error})`);
+                });
+            })
+          }
+          location.reload();
+        },{ once: true })
+        const li3 = document.createElement('li');
+        li3.id = "fav"
+        li3.textContent = "お気に入り";
+        li3.onclick = function () {
+          $("#overlay").fadeIn(1);
+          // データベースの取得
+          $('.hero_img').fadeOut(100);
+          $('#flex').fadeOut(100);
+          dbget();
+          $('#fav-area').fadeIn(1);
+          setTimeout(() => {
+            $("#overlay").fadeOut(300);
+          }, 500);
+        }
+        const li4 = document.createElement('li');
+        li4.id = "goto_main"
+        li4.textContent = "メインページ"
+        li4.onclick = function(){
+          $('#fav-area').fadeOut(1);
+          $('.hero_img').fadeIn(300);
+          $('#flex').fadeIn(1);
+        }
+        link.append(li4);
+        link.append(li3);
+        link.append(li2);
+      }
+      // 登録解除
+      unsubscribe();
+    });
+
+    function dbset() {
+      db.collection(User.uid).doc(fav_obj.title).set({
+        uid: User.uid,
+        name:  User.name,
+        title: fav_obj.title,
+        image: fav_obj.image,
+        large_area: fav_obj.large_area,
+        middle_area: fav_obj.middle_area,
+        lat: fav_obj.lat,
+        lng: fav_obj.lng,
+        url: fav_obj.url
+      })
+        .catch(function (error) {
+          console.error("Error adding document: ", error);
+        });
+    }
+    // お気に入り画面の実装
+    function dbget(){
+      // firestoreのデータ取得（全件）
+      db.collection(User.uid).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          const name = doc.id;
+          const obj = doc.data();
+          firebase_obj[name] = obj;
+        })
+      }).then(function(){
+        const map2 = document.getElementById('myMap2');
+        favMap_addPin(map2, firebase_obj, 5.7);
+      }
+      )
+    }
+    // デフォルトはfavエリアを消す
+    $('#fav-area').fadeOut(1);
+    $('.hero_img').fadeOut(300);
+    $('.hero_img').fadeIn(1000);
+  </script>
+  </body>
+</html>

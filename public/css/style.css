@@ -1,0 +1,492 @@
+/* 初期設定 */
+html{
+  scroll-behavior: smooth;
+  scroll-margin-top: 50px;
+}
+body{
+  width: 1300px;
+  height: auto;
+  margin: 0 auto;
+  font-family: "Yu Gothic Medium", "游ゴシック Medium", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
+}
+/* ヘッダー */
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+.link{
+  display: flex;
+  justify-content: space-between;
+}
+.link > li{
+  margin-left: 10px;
+  margin-top: 25px;
+}
+#fav:hover{
+  color:rgb(0, 102, 255);
+  font-weight: bold;
+}
+#goto_main:hover{
+  color:rgb(0, 102, 255);
+  font-weight: bold;
+}
+
+#logout:hover{
+  color:rgb(0, 102, 255);
+  font-weight: bold;
+}
+/* 認証ページ */
+.background{
+  width: 100vw;
+  height: 100vh;
+  background: rgb(238,215,174);
+  background: linear-gradient(90deg, rgba(238,215,174,1) 0%, rgba(233,166,148,0.9290091036414566) 100%);
+  padding-top: 150px;
+}
+.auth_main{
+  display: grid;
+  justify-content: center;
+}
+.auth_main > img{
+  border: 1px solid rgba(0, 0, 0, 0.233);
+  margin-bottom: 30px;
+  font-weight: lighter;
+}
+.auth_main > h2{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 32px;
+  color: #fff;
+  text-shadow:1px 1px 1px  #f00;
+  font-family: "Arial", "メイリオ";
+  font-weight: bold;
+}
+
+/* メインイメージ */
+.hero_img{
+  background-image: url(../img/4154078_l-min.jpg);
+  background-size: cover;
+  background-color:black;
+  background-blend-mode:lighten;
+  width: 100%;
+  height: 85vh;
+  object-position: center center;
+  position: relative;
+}
+
+/* メインイメージのテキスト */
+.bg{
+  position: absolute;
+  top: 150px;
+  background-color: rgba(12, 12, 12, 0.4);
+}
+.inn{
+  text-shadow: 0.1px 0 5px rgb(250, 217, 146);
+}
+
+.bg .bg-wrap {
+  display: inline-block;
+  margin-top: 5px;
+}
+.bg .bg-wrap .inn {
+  color: #fff;
+  display: inline-block;
+  font-size: 72px;
+  font-weight: bold;
+  padding: 5px 15px;
+  z-index: 1;
+}
+
+/* メインエリアの設定 */
+#flex{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+main{
+  width: 100%;
+}
+button{
+  color: black;
+}
+#result{
+  display: flex;
+  justify-content: space-evenly;
+}
+.title{
+  font-size:28px;
+  font-weight: bolder;
+  text-align: center;
+  background-color: rgb(255, 191, 73);
+  color: #fff;
+  height: 50px;
+  padding-top: 10px;
+  text-shadow: 0.1px 0 5px rgb(184, 125, 0);
+}
+
+/* 検索エリア */
+#place_search {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.search_title{
+  font-size: 24px;
+  margin-top: 5px;
+}
+#pattarn1{
+  text-align: center;
+  width: 49%;
+  margin-top: 10px;
+  border: 1px solid gray;
+}
+#map-img{
+  display: block;
+  width: 50%;
+  height: auto;
+  margin: 0 auto;
+}
+#map-img1{
+  display: block;
+  width: 36%;
+  height: auto;
+  margin: 10px auto 10px;
+  object-fit: cover;
+}
+#moyori-btn{
+  width: 30%;
+  height: 40px;
+  font-size: 24px;
+  background-color: coral;
+  border-radius: 2%;
+  color: #fff;
+  margin-bottom: 30px;
+}
+#moyori-btn:hover{
+  background-color: rgba(255, 127, 80, 0.5);
+}
+.yazirusi{
+  font-size: 24px;
+  margin-top: 5px;
+}
+.moyori_box{
+  display: flex;
+  justify-content: space-evenly;
+}
+select{
+  border: 2px solid coral;
+  width: 200px;
+  height: 40px;
+  text-align: center;
+}
+option{
+  text-align: center;
+}
+button.btn--yellow {
+  color: #fff;
+  background-color: coral;
+  border-bottom: 5px solid rgb(192, 110, 80);
+  width: 30%;
+  height: 40px;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+button.btn--yellow:hover {
+  color: #fff;
+  background: coral;
+  border-bottom: 2px solid rgb(192, 110, 80);
+}
+#pattarn2{
+  text-align: center;
+  border: 1px solid black;
+  width: 49%;
+  margin-top: 10px;
+}
+.moyori_box1{
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 30px;
+}
+#map_input{
+  margin-bottom: 50px;
+}
+/* mapの設定 */
+#result{
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+#myMap{
+  width: 520px;
+  height: 520px;
+  margin-top: 15px;
+}
+/* レストランの情報 */
+#shop-info{
+  width: 95%;
+  height: 530px;
+  overflow: auto;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.shop{
+  width: 100%;
+  height: 240px;
+  margin-top: 10px;
+  display: flex;
+  border: 1px solid gray;
+  padding-right: 5px;
+}
+.shop_img{
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+  object-position: center center;
+}
+.text_content{
+  font-size: 12px;
+  width: 100%;
+  height: auto;
+}
+.text_content > p,a{
+  margin-bottom: 5px;
+  margin-left: 5px;
+  height: auto;
+}
+.shop_title{
+  font-size: 18px;
+  font-weight: bold;
+}
+.shop_address {
+  margin-top: 10px;
+  font-size: 14px;
+}
+.shop_access {
+  font-size: 14px;
+}
+.shop_price{
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.shop_open{
+  margin-top: 10px;
+}
+.event_content{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.shop_link{
+  display: block;
+  background-color: rgb(240, 64, 51);
+  color: aliceblue;
+  margin-left:  auto ;
+  margin-right:  auto ;
+  text-align: center;
+  width: 25%;
+  height: 30px;
+  border-radius: 3% 3% 3%;
+  font-size: 14px;
+  padding-top: 7px;
+}
+.shop_link:hover{
+  background-color: rgba(240, 63, 51, 0.459);
+}
+.event_content > div{
+  display: block;
+  color: aliceblue;
+  margin-left:  auto ;
+  margin-right:  auto ;
+  text-align: center;
+  width: 25%;
+  height: 30px;
+  border-radius: 3% 3% 3%;
+  font-size: 14px;
+  padding-top: 7px;
+}
+.shop_course {
+  background-color: blue;
+}
+.shop_course:hover {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+.shop_like {
+  background-color: rgb(63, 172, 0);
+}
+.shop_like:hover {
+  background-color: rgba(63, 172, 0, 0.507);
+}
+
+.shop_fav{
+  display: block;
+  background-color: rgb(192, 10, 216);
+  color: aliceblue;
+  margin-left:  auto ;
+  margin-right:  auto ;
+  text-align: center;
+  width: 25%;
+  height: 30px;
+  border-radius: 3% 3% 3%;
+  font-size: 14px;
+  padding-top: 7px;
+}
+.shop_fav:hover{
+  background-color: rgba(192, 10, 216, 0.5);
+}
+#hide-comment {
+  width: 100%;
+  height: 450px;
+}
+#hide-comment > p{
+  font-size: 24px;
+  text-align: center;
+  color: #ddd;
+  margin-bottom: 20px;
+  color: black;
+}
+#hide-comment > img{
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: auto;
+}
+/* お気に入りエリア */
+#fav-map{
+  width: 100%;
+  height: 550px;
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+}
+#myMap2{
+  width: 65%;
+  height: 500px;
+}
+#fav-text{
+  width: 30%;
+  height: 500px;
+  margin-left: 20px;
+}
+#fav-shop{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+}
+#total{
+  font-size: 24px;
+  text-align: center;
+}
+#favBlock{
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  height: auto;
+
+}
+#fav_table{
+  width: 70%;
+  margin: 0 auto;
+  font-size: 20px;
+  border: 1px solid black;
+}
+th{
+  text-align: center;
+  border: 1px solid black;
+  background-color: rgb(255, 191, 73);
+}
+td{
+  text-align: center;
+  border: 1px solid black;
+}
+tr{
+  margin-bottom: 10px;
+  border: black 1px solid;
+}
+.favShop{
+  background-color: rgba(255, 166, 0, 0.315);
+  width: 280px;
+  height: 330px;
+  margin: 20px;
+}
+.fav_p {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 10px;
+}
+.fav_img{
+  display: block;
+  margin: 10px auto;
+  width: 80%;
+  height: 240px;
+  object-fit: cover;
+}
+.fav_a{
+  background-color: rgb(240, 64, 51);
+  color: aliceblue;
+  text-align: center;
+  width: 33%;
+  height: 30px;
+  border-radius: 3% 3% 3%;
+  font-size: 14px;
+  padding-top: 4px;
+  margin-top: 5px;
+  font-size: 18px;
+}
+.fav_a:hover{
+  background-color: rgba(240, 63, 51, 0.459);
+}
+.div-flex{
+  display: flex;
+  justify-content: space-around;
+}
+.delete_btn{
+  background-color: rgb(56, 56, 245);
+  color: aliceblue;
+  text-align: center;
+  width: 33%;
+  height: 30px;
+  border-radius: 3% 3% 3%;
+  font-size: 14px;
+  padding-top: 4px;
+  margin-top: 5px;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+.delete_btn:hover{
+  background-color: rgba(56, 56, 245, 0.5);
+}
+
+/* ローディング画面 */
+#overlay {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+}
+.cv-spinner > p{
+  font-size: 18px;
+  color: #fff;
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px #ddd solid;
+  border-top: 4px orange solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+  margin-right: 10px;
+}
+@keyframes sp-anime {
+  100% {
+    transform: rotate(360deg);
+  }
+}
